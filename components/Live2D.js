@@ -40,4 +40,14 @@ export default function Live2D() {
         onMouseDown={(e) => e.target.classList.add('cursor-grabbing')}
         onMouseUp={(e) => e.target.classList.remove('cursor-grabbing')}
     />
+    const canvas = document.getElementById('live2d'); // 替换 'live2d' 为你的 canvas ID
+    const context = canvas.getContext('2d');
+    
+    const scale = 0.3; // 缩放因子，例如将尺寸缩小为原来的一半
+    
+    canvas.width = canvas.width * scale;
+    canvas.height = canvas.height * scale;
+    
+    context.scale(scale, scale); // 缩放绘图上下文
+    
 }
