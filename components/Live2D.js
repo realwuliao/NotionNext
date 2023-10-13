@@ -35,16 +35,12 @@ export default function Live2D() {
     return <></>
   }
 
-  return <canvas id="live2d" width="900" height="1600" onClick={handleClick}
+  return <canvas id="live2d" width="900" height="900" onClick={handleClick}
     className="cursor-grab"
     onMouseDown={(e) => e.target.classList.add('cursor-grabbing')}
     onMouseUp={(e) => e.target.classList.remove('cursor-grabbing')}
   />
   const canvas = document.getElementById('live2d');
-  const context = canvas.getContext('2d');
   const scale = 0.3;
-  canvas.width = canvas.width * scale;
-  canvas.height = canvas.height * scale;
-  context.scale(scale, scale);
-
+  canvas.style.transform = `scale(${scale})`;
 }
