@@ -75,7 +75,7 @@ export default function SideRight(props) {
 
         {rightAreaSlot}
         <FaceBookPage/>
-        <Live2D />.style.transform = `scale(${scale})`
+        <Live2D />
       </div>
 
     </div>
