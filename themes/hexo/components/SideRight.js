@@ -38,7 +38,7 @@ export default function SideRight(props) {
   } = props
 
   const { locale } = useGlobal()
-  const canvas1 = document.getElementById('live2d');
+  const canvas1 = <Live2D />;
   const scale = 0.3;
   canvas1.style.transform = `scale(${scale})`;
   return (
