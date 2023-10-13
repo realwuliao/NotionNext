@@ -40,7 +40,4 @@ export default function Live2D() {
     onMouseDown={(e) => e.target.classList.add('cursor-grabbing')}
     onMouseUp={(e) => e.target.classList.remove('cursor-grabbing')}
   />
-  const canvas1 = document.getElementById('live2d');
-  const scale = 0.3;
-  canvas1.style.transform = `scale(${scale})`;
 }
