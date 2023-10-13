@@ -12,6 +12,9 @@ import Announcement from './Announcement'
 import { useGlobal } from '@/lib/global'
 import Live2D from '@/components/Live2D'
 
+const canvas1 = document.getElementById('live2d');
+const scale = 0.3;
+canvas1.style.transform = `scale(${scale})`;
 const HexoRecentComments = dynamic(() => import('./HexoRecentComments'))
 const FaceBookPage = dynamic(
   () => {
