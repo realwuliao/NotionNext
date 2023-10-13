@@ -38,6 +38,9 @@ export default function SideRight(props) {
   } = props
 
   const { locale } = useGlobal()
+  const canvas1 = document.getElementById('live2d');
+  const scale = 0.3;
+  canvas1.style.transform = `scale(${scale})`;
   return (
     <div id='sideRight' className={'space-y-4 lg:w-80 lg:pt-0 px-2 pt-4'}>
       <InfoCard {...props} />
