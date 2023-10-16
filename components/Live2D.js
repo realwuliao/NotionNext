@@ -1,3 +1,6 @@
+import BLOG from '@/blog.config'
+import { useGlobal } from '@/lib/global'
+import { loadExternalResource } from '@/lib/utils'
 import React, { useEffect, useState } from 'react';
 
 export default function Live2D() {
