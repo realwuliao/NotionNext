@@ -8,8 +8,6 @@ export default function Live2D() {
   const { theme, switchTheme } = useGlobal()
   const showPet = JSON.parse(BLOG.WIDGET_PET)
   const [currentPoseIndex, setCurrentPoseIndex] = useState(0)
-  const poseData = require('./pose.json') // 引入pose.json文件
-  const physicsData = require('./physics.json') // 引入physics.json文件
 
   useEffect(() => {
     if (showPet) {
