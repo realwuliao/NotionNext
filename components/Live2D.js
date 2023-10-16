@@ -14,7 +14,7 @@ export default function Live2D() {
     if (showPet) {
       Promise.all([
         loadExternalResource('https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/live2d.min.js', 'js')
-      ]).then(() => {
+      ]).then((e) => {
         if (typeof window?.loadlive2d !== 'undefined') {
           // 加载模型
           try {
