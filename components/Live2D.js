@@ -2,48 +2,75 @@
 import BLOG from '@/blog.config'
 import { useGlobal } from '@/lib/global'
 import { loadExternalResource } from '@/lib/utils'
-import React from 'react'
+import React, { useEffect, useState } from 'react';
 
 export default function Live2D() {
-  const { switchTheme } = useGlobal()
+  const { theme, switchTheme } = useGlobal();
+  const showPet = JSON.parse(BLOG.WIDGET_PET);
+  const [currentPoseIndex, setCurrentPoseIndex] = useState(0);
+  const poseData = require('./pose.json'); // 引入pose.json文件
+  const physicsData = require('./physics.json'); // 引入physics.json文件
 
-  React.useEffect(() => {
-    if (BLOG.WIDGET_PET) {
-      window.addEventListener('scroll', initLive2D)
-      return () => {
-        window.removeEventListener('scroll', initLive2D)
-      }
+  useEffect(() => {
+    if (showPet) {
+      Promise.all([
+        loadExternalResource('https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/live2d.min.js', 'js')
+      ]).then((e) => {
+        if (typeof window?.loadlive2d !== 'undefined') {
+          // 加载模型
+          try {
+            loadlive2d('live2d', BLOG.WIDGET_PET_LINK);
+          } catch (error) {
+            console.error('读取PET模型', error);
+          }
+        }
+      });
     }
-  }, [])
+  }, [theme]);
 
+  // 处理姿势切换的函数
+  function applyPose(poseIndex) {
+    const selectedPose = poseData[poseIndex];
+    // 在这里使用Live2D库的函数来应用姿势
+    // 示例：假设使用setPose函数来应用姿势
+    setPose(selectedPose);
+
+    // 如果有物理特性的数据，也可以应用
+    if (physicsData) {
+      // 在这里使用Live2D库的函数来应用物理特性
+      // 示例：假设使用setPhysics函数来应用物理特性
+      setPhysics(physicsData);
+    }
+  }
+
+  // 处理点击事件，切换到下一个姿势
   function handleClick() {
-    if (BLOG.WIDGET_PET_SWITCH_THEME) {
-      switchTheme()
+    if (JSON.parse(BLOG.WIDGET_PET_SWITCH_THEME)) {
+      switchTheme();
+    } else {
+      const nextPoseIndex = (currentPoseIndex + 1) % poseData.length;
+      applyPose(nextPoseIndex);
+      setCurrentPoseIndex(nextPoseIndex);
     }
   }
 
-  if (!BLOG.WIDGET_PET || !JSON.parse(BLOG.WIDGET_PET)) {
-    return <></>
+  if (!showPet) {
+    return <></>;
   }
 
-  return <canvas id="live2d" className='cursor-pointer' width="280" height="250" onClick={handleClick} alt='切换主题' title='切换主题' />
-}
-
-/**
- * 加载宠物
- */
-function initLive2D() {
-  window.removeEventListener('scroll', initLive2D)
-  setTimeout(() => {
-    // 加载 waifu.css live2d.min.js waifu-tips.js
-    // if (screen.width >= 768) {
-    Promise.all([
-      // loadExternalResource('https://cdn.zhangxinxu.com/sp/demo/live2d/live2d/js/live2d.js', 'js')
-      loadExternalResource('https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/live2d.min.js', 'js')
-    ]).then((e) => {
-      // https://github.com/xiazeyu/live2d-widget-models
-      loadlive2d('live2d', BLOG.WIDGET_PET_LINK)
-    })
-    // }
-  }, 300)
+  return (
+    <canvas
+      id="live2d"
+      width="900"
+      height="900"
+      onClick={handleClick}
+      className="cursor-grab"
+      onMouseDown={(e) => e.target.classList.add('cursor-grabbing')}
+      onMouseUp={(e) => e.target.classList.remove('cursor-grabbing')}
+      style={{
+        width: '300px', // 设置Canvas的CSS宽度
+        height: '300px' // 设置Canvas的CSS高度
+      }}
+    />
+  );
 }
