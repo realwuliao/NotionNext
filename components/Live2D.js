@@ -14,7 +14,20 @@ export default function Live2D() {
   useEffect(() => {
     if (showPet) {
       Promise.all([
-        loadExternalResource('https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/live2d.min.js', 'js')
+        loadExternalResource('https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/live2d.min.js', 'js'),
+        fetch('https://xxx.tgftgf.workers.dev/100100/pose.json') // 获取远程 pose.json 文件
+          .then(response => response.json()) // 解析 JSON 响应
+          .then(poseData => {
+            // poseData 包含从远程 pose.json 文件获取的数据
+            // 在这里处理 poseData，可能需要将其存储在状态中
+          }
+          ),
+          fetch('https://xxx.tgftgf.workers.dev/100100/physics.json') // 获取远程 pose.json 文件
+          .then(response => response.json()) // 解析 JSON 响应
+          .then(physicsData => {
+            // poseData 包含从远程 pose.json 文件获取的数据
+            // 在这里处理 poseData，可能需要将其存储在状态中
+          })
       ]).then((e) => {
         if (typeof window?.loadlive2d !== 'undefined') {
           // 加载模型
