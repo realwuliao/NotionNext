@@ -22,7 +22,7 @@ export default function Live2D() {
             // 在这里处理 poseData，可能需要将其存储在状态中
           }
           ),
-          fetch('https://xxx.tgftgf.workers.dev/100100/physics.json') // 获取远程 pose.json 文件
+        fetch('https://xxx.tgftgf.workers.dev/100100/physics.json') // 获取远程 pose.json文件
           .then(response => response.json()) // 解析 JSON 响应
           .then(physicsData => {
             // poseData 包含从远程 pose.json 文件获取的数据
