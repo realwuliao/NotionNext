@@ -21,18 +21,18 @@ export default function Live2D() {
   }
 
   return <canvas
-      id="live2d"
-      width="900"
-      height="900"
-      onClick={handleClick}
-      className="cursor-grab"
-      onMouseDown={(e) => e.target.classList.add('cursor-grabbing')}
-      onMouseUp={(e) => e.target.classList.remove('cursor-grabbing')}
-      style={{
-        width: '300px', // 设置Canvas的CSS宽度
-        height: '300px' // 设置Canvas的CSS高度
-      }}
-    />
+    id="live2d"
+    width="900"
+    height="900"
+    onClick={handleClick}
+    className="cursor-grab"
+    onMouseDown={(e) => e.target.classList.add('cursor-grabbing')}
+    onMouseUp={(e) => e.target.classList.remove('cursor-grabbing')}
+    style={{
+      width: '300px', // 设置Canvas的CSS宽度
+      height: '300px' // 设置Canvas的CSS高度
+    }}
+  />
 }
 
 /**
@@ -82,7 +82,7 @@ function applyPose(poseIndex) {
 
 // 处理点击事件，切换到下一个姿势
 function handleClick() {
-    const nextPoseIndex = (currentPoseIndex + 1) % poseData.length
-    applyPose(nextPoseIndex)
-    setCurrentPoseIndex(nextPoseIndex)
+  const nextPoseIndex = (currentPoseIndex + 1) % poseData.length
+  applyPose(nextPoseIndex)
+  setCurrentPoseIndex(nextPoseIndex)
 }
