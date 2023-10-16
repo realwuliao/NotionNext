@@ -8,13 +8,23 @@ export default function Live2D() {
   const { theme, switchTheme } = useGlobal();
   const showPet = JSON.parse(BLOG.WIDGET_PET);
   const [currentPoseIndex, setCurrentPoseIndex] = useState(0);
-  const poseData = require('./pose.json'); // 引入pose.json文件
-  const physicsData = require('./physics.json'); // 引入physics.json文件
-
   useEffect(() => {
     if (showPet) {
       Promise.all([
-        loadExternalResource('https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/live2d.min.js', 'js')
+        loadExternalResource('https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/live2d.min.js', 'js'),
+        fetch('https://xxx.tgftgf.workers.dev/100100/pose.json') // 获取远程 pose.json 文件
+          .then(response => response.json()) // 解析 JSON 响应
+          .then(poseData => {
+            // poseData 包含从远程 pose.json 文件获取的数据
+            // 在这里处理 poseData，可能需要将其存储在状态中
+          }
+          ),
+        fetch('https://xxx.tgftgf.workers.dev/100100/physics.json') // 获取远程 pose.json文件
+          .then(response => response.json()) // 解析 JSON 响应
+          .then(physicsData => {
+            // poseData 包含从远程 pose.json 文件获取的数据
+            // 在这里处理 poseData，可能需要将其存储在状态中
+          })
       ]).then((e) => {
         if (typeof window?.loadlive2d !== 'undefined') {
           // 加载模型
