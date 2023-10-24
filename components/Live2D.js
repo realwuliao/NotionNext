@@ -3,6 +3,7 @@ import * as PIXI from 'pixi.js'
 export default function Live2D() {
   const modelUrl = 'https://xxx.tgftgf.workers.dev/103302/model.json';
   const [modelData, setModelData] = useState(null);
+  const follow = true;
 
   useEffect(() => {
     // 使用 Fetch API 从网络链接获取 Live2D 模型资源
@@ -31,7 +32,7 @@ export default function Live2D() {
         autoInteract: follow,
         expressionFadingDuration: 0,
         motionFadingDuration: 0,
-        idleMotionFadingDuration: 0,
+        idleMotionFadingDuration: 0
       });
 
       // 创建 Pixi Application
