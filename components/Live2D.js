@@ -37,8 +37,8 @@ export default function Live2D() {
 
       // 创建 Pixi Application
       const app = new PIXI.Application({
-        width: 1800,
-        height: 1800,
+        width: 1280,
+        height: 1600,
         transparent: true,
         preserveDrawingBuffer: true
       });
@@ -61,11 +61,11 @@ export default function Live2D() {
 
       // 将 Pixi Application 挂载到页面上的 DOM 元素
       const container = document.getElementById('live2d-container');
-      container.style.width = '900px';
-      container.style.height = '900px';
+      container.style.width = '320px';
+      container.style.height = '400px';
       container.appendChild(app.view);
     }
   }, [modelData]);
 
-  return <div id='live2d-container' style={{ width: '900px', height: '900px' }}></div>;
+  return <div id='live2d-container' style={{ width: '320px', height: '400px' }}></div>;
 }
