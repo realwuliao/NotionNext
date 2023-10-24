@@ -19,7 +19,8 @@ export default function Live2D() {
   }, [modelUrl]);
 
   useEffect(() => {
-    if (modelData) {Promise.all([
+    if (modelData) { 
+      Promise.all([
         loadExternalResource('https://pixijs.download/v7.3.2/pixi.min.js', 'js')
       ]).then((e) => {
       // 创建 Live2D 模型
@@ -67,7 +68,8 @@ export default function Live2D() {
       container.style.height = '400px';
       container.appendChild(app.view);
     })
-  }}, [modelData]);
+  }
+  }, [modelData]);
 
   return <div id='live2d-container' style={{ width: '320px', height: '400px' }}></div>;
 }
