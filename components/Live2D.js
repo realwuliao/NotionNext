@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 export default function Live2D() {
-    const modelUrl = 'https://xxx.tgftgf.workers.dev/100100/pose.json';
+    const modelUrl = 'https://xxx.tgftgf.workers.dev/103302/model.json';
     const [modelData, setModelData] = useState(null);
 
     useEffect(() => {
