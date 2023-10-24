@@ -19,8 +19,7 @@ export default function Live2D() {
   }, [modelUrl]);
 
   useEffect(() => {
-    if (modelData) { 
-      Promise.all([
+    if (modelData) { Promise.all([
         loadExternalResource('https://pixijs.download/v7.3.2/pixi.min.js', 'js')
       ]).then((e) => {
       // 创建 Live2D 模型
