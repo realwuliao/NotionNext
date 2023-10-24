@@ -36,8 +36,8 @@ export default function Live2D() {
 
             // 创建 Pixi Application
             const app = new PIXI.Application({
-                width: 1280,   // 保持宽度为 1800 像素
-                height: 1600,  // 保持高度为 1800 像素
+                width: 1280,   // 保持宽度为 1280 像素
+                height: 1600,  // 保持高度为 1600 像素
                 transparent: true,
                 preserveDrawingBuffer: true,
             });
@@ -60,8 +60,8 @@ export default function Live2D() {
 
             // 将 Pixi Application 挂载到页面上的 DOM 元素
             const container = document.getElementById("live2d-container");
-            container.style.width = "320px";  // 修改容器宽度为 900px
-            container.style.height = "400px"; // 修改容器高度为 900px
+            container.style.width = "320px";  // 修改容器宽度为 320px
+            container.style.height = "400px"; // 修改容器高度为 400px
             container.appendChild(app.view);
         }
     }, [modelData]);
