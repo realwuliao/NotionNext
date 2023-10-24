@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import * as PIXI from 'pixi.js'
+import { loadExternalResource } from '@/lib/utils'
 export default function Live2D() {
   const modelUrl = 'https://xxx.tgftgf.workers.dev/103302/model.json';
   const [modelData, setModelData] = useState(null);
@@ -19,7 +19,9 @@ export default function Live2D() {
   }, [modelUrl]);
 
   useEffect(() => {
-    if (modelData) {
+    if (modelData) {Promise.all([
+        loadExternalResource('https://pixijs.download/v7.3.2/pixi.min.js', 'js')
+      ]).then((e) => {
       // 创建 Live2D 模型
       const settings = new PIXI.live2d.Cubism4ModelSettings(modelData);
       const live2dSprite = PIXI.live2d.Live2DModel.from(settings, {
@@ -64,8 +66,8 @@ export default function Live2D() {
       container.style.width = '320px';
       container.style.height = '400px';
       container.appendChild(app.view);
-    }
-  }, [modelData]);
+    })
+  }}, [modelData]);
 
   return <div id='live2d-container' style={{ width: '320px', height: '400px' }}></div>;
 }
