@@ -27,7 +27,7 @@ export default function Live2D() {
         debugLog: false,
         debugMouseLog: false,
         randomMotion: false,
-        defaultMotionGroup: "Motion",
+        defaultMotionGroup: 'Motion',
         autoInteract: follow,
         expressionFadingDuration: 0,
         motionFadingDuration: 0,
@@ -39,7 +39,7 @@ export default function Live2D() {
         width: 1800,
         height: 1800,
         transparent: true,
-        preserveDrawingBuffer: true,
+        preserveDrawingBuffer: true
       });
 
       // 将 Live2D 模型添加到 Pixi Application 的舞台
@@ -52,19 +52,19 @@ export default function Live2D() {
         live2dSprite.internalModel.motionManager.expressionManager.setRandomExpression();
 
         // 随机切换动作
-        live2dSprite.internalModel.motionManager.startRandomMotion("Motion");
+        live2dSprite.internalModel.motionManager.startRandomMotion('Motion');
       }
 
       // 将点击事件处理函数绑定到 Live2D 模型
       live2dSprite.on('click', handleModelClick);
 
       // 将 Pixi Application 挂载到页面上的 DOM 元素
-      const container = document.getElementById("live2d-container");
-      container.style.width = "900px";
-      container.style.height = "900px";
+      const container = document.getElementById('live2d-container');
+      container.style.width = '900px';
+      container.style.height = '900px';
       container.appendChild(app.view);
     }
   }, [modelData]);
 
-  return <div id="live2d-container" style={{ width: "900px", height: "900px" }}></div>;
+  return <div id='live2d-container' style={{ width: '900px', height: '900px' }}></div>;
 }
