@@ -43,7 +43,7 @@ export default function Live2D() {
             // const { Live2DModel, Cubism2ModelSettings } = PIXI.live2d;
 
             // 创建 Live2D 模型
-            const settings = new PIXI.live2d.Cubism2ModelSettings(modelData);
+            const settings = new live2d.Cubism2ModelSettings(modelData);
             live2dSprite = new PIXI.live2d.Live2DModel(settings, {
               eyeBlink: true,
               lipSyncWithSound: true,
