@@ -22,6 +22,7 @@ export default function Live2D() {
 
   useEffect(() => {
     if (modelData) {
+      console.log('PixiJS loaded successfully');
       // 使用 loadExternalResource 加载 PixiJS
       loadExternalResource('https://pixijs.download/v7.3.2/pixi.min.js', 'js')
         .then(() => {
