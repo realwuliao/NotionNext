@@ -7,20 +7,6 @@ export default function Live2D() {
   const follow = true;
   let live2dSprite;
 
-  const cubismScript = document.createElement('script');
-  cubismScript.src = 'https://cdn.jsdelivr.net/gh/dylanNew/live2d/webgl/Live2D/lib/live2d.min.js';
-  document.head.appendChild(cubismScript);
-  cubismScript.onload = () => {
-    // 此处执行 Live2D 模型的初始化
-    loadPixiJSAndInitializeLive2D();
-  };
-
-
-
-
-
-
-
   useEffect(() => {
     // 使用 Fetch API 从网络链接获取 Live2D 模型资源
     fetch(modelUrl)
@@ -54,7 +40,7 @@ export default function Live2D() {
             'js'
           ).then(() => {
             // 导入 Live2DModel 和 Cubism2ModelSettings
-            const { Live2DModel, Cubism2ModelSettings } = window.Live2D;
+            const { Live2DModel, Cubism2ModelSettings } = window.live2d;
 
             // 创建 Live2D 模型
             const settings = new Cubism2ModelSettings(modelData);
