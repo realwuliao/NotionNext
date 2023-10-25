@@ -26,6 +26,13 @@ export default function Live2D() {
         .then(() => {
           // 导入 PixiJS 对象
           const PIXI = window.PIXI;
+          // 创建 Pixi Application
+          const app = new PIXI.Application({
+            width: 1280,
+            height: 1600,
+            transparent: true,
+            preserveDrawingBuffer: true
+          });
 
           // 外部资源加载完成后，加载 Live2D Display 库
           loadExternalResource(
@@ -50,6 +57,9 @@ export default function Live2D() {
               idleMotionFadingDuration: 0
             });
 
+            // 将 Live2D 模型添加到 Pixi Application 的舞台
+            app.stage.addChild(live2dSprite);
+
             // 点击事件处理
             function handleModelClick() {
               // 随机切换表情
@@ -66,7 +76,7 @@ export default function Live2D() {
             const container = document.getElementById('live2d-container');
             container.style.width = '320px';
             container.style.height = '400px';
-            container.appendChild(live2dSprite);
+            container.appendChild(app.view);
           });
         })
         .catch((error) => {
