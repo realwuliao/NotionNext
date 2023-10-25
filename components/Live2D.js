@@ -40,11 +40,11 @@ export default function Live2D() {
             'js'
           ).then(() => {
             // 导入 Live2DModel 和 Cubism2ModelSettings
-            const { Live2DModel, Cubism2ModelSettings } = PIXI.live2d;
+            // const { Live2DModel, Cubism2ModelSettings } = PIXI.live2d;
 
             // 创建 Live2D 模型
-            const settings = new Cubism2ModelSettings(modelData);
-            live2dSprite = new Live2DModel(settings, {
+            const settings = new PIXI.live2d.Cubism2ModelSettings(modelData);
+            live2dSprite = new PIXI.live2d.Live2DModel(settings, {
               eyeBlink: true,
               lipSyncWithSound: true,
               debugLog: false,
