@@ -23,7 +23,7 @@ export default function Live2D() {
   useEffect(() => {
     if (modelData) {
       // 使用 loadExternalResource 加载 PixiJS
-      loadExternalResource('https://pixijs.download/v7.3.2/pixi.min.js', 'js')
+      loadExternalResource('https://cdn.jsdelivr.net/npm/pixi-live2d-display/dist/cubism4.min.js', 'js')
         .then(() => {
           // 在这里初始化 PixiJS
           console.log('PixiJS loaded successfully');
