@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { loadExternalResource } from '@/lib/utils';
-import { Live2DModel } from '@/lib/live2d';
-import { Cubism2ModelSettings } from '@/lib/live2d';
 
 export default function Live2D() {
   const modelUrl = 'https://xxx.tgftgf.workers.dev/103302/model.json';
@@ -24,56 +22,52 @@ export default function Live2D() {
 
   useEffect(() => {
     if (modelData) {
-      // 使用 loadExternalResource 加载 PixiJS
       loadExternalResource('https://pixijs.download/v6.5.10/pixi.min.js', 'js')
         .then(() => {
-          // 在这里初始化 PixiJS
-          console.log('PixiJS loaded successfully');
-          const PIXI = window.PIXI; // 如果 PixiJS 脚本正确加载，PIXI应该为全局对象
+          // 导入 PixiJS 对象
+          const PIXI = window.PIXI;
 
-          // 创建 Pixi Application
-          const app = new PIXI.Application({
-            width: 1280,
-            height: 1600,
-            transparent: true,
-            preserveDrawingBuffer: true
+          // 外部资源加载完成后，加载 Live2D Display 库
+          loadExternalResource(
+            'https://cdn.jsdelivr.net/npm/pixi-live2d-display/dist/cubism2.min.js',
+            'js'
+          ).then(() => {
+            // 导入 Live2DModel 和 Cubism2ModelSettings
+            const { Live2DModel, Cubism2ModelSettings } = window.Live2D;
+
+            // 创建 Live2D 模型
+            const settings = new Cubism2ModelSettings(modelData);
+            live2dSprite = new Live2DModel(settings, {
+              eyeBlink: true,
+              lipSyncWithSound: true,
+              debugLog: false,
+              debugMouseLog: false,
+              randomMotion: false,
+              defaultMotionGroup: 'Motion',
+              autoInteract: follow,
+              expressionFadingDuration: 0,
+              motionFadingDuration: 0,
+              idleMotionFadingDuration: 0
+            });
+
+            // 点击事件处理
+            function handleModelClick() {
+              // 随机切换表情
+              live2dSprite.internalModel.motionManager.expressionManager.setRandomExpression();
+
+              // 随机切换动作
+              live2dSprite.internalModel.motionManager.startRandomMotion('Motion');
+            }
+
+            // 将点击事件处理函数绑定到 Live2D 模型
+            live2dSprite.on('click', handleModelClick);
+
+            // 挂载到页面上的 DOM 元素
+            const container = document.getElementById('live2d-container');
+            container.style.width = '320px';
+            container.style.height = '400px';
+            container.appendChild(live2dSprite);
           });
-
-          // 创建 Live2D 模型
-          const settings = new Cubism2ModelSettings(modelData);
-          live2dSprite = Live2DModel.from(settings, {
-            eyeBlink: true,
-            lipSyncWithSound: true,
-            debugLog: false,
-            debugMouseLog: false,
-            randomMotion: false,
-            defaultMotionGroup: 'Motion',
-            autoInteract: follow,
-            expressionFadingDuration: 0,
-            motionFadingDuration: 0,
-            idleMotionFadingDuration: 0
-          });
-
-          // 将 Live2D 模型添加到 Pixi Application 的舞台
-          app.stage.addChild(live2dSprite);
-
-          // 点击事件处理
-          function handleModelClick() {
-            // 随机切换表情
-            live2dSprite.internalModel.motionManager.expressionManager.setRandomExpression();
-
-            // 随机切换动作
-            live2dSprite.internalModel.motionManager.startRandomMotion('Motion');
-          }
-
-          // 将点击事件处理函数绑定到 Live2D 模型
-          live2dSprite.on('click', handleModelClick);
-
-          // 将 Pixi Application 挂载到页面上的 DOM 元素
-          const container = document.getElementById('live2d');
-          container.style.width = '320px';
-          container.style.height = '400px';
-          container.appendChild(app.view);
         })
         .catch((error) => {
           console.error('加载 PixiJS 失败', error);
@@ -81,5 +75,5 @@ export default function Live2D() {
     }
   }, [modelData]);
 
-  return <div id='live2d' style={{ width: '320px', height: '400px' }}></div>;
+  return <div id='live2d-container' style={{ width: '320px', height: '400px' }}></div>;
 }
