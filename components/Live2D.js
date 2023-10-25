@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { loadExternalResource } from '@/lib/utils';
+// import { live2dModel } from '@/lib/live2d';
 
 export default function Live2D() {
   const modelUrl = 'https://xxx.tgftgf.workers.dev/103302/model.json';
@@ -23,7 +24,7 @@ export default function Live2D() {
   useEffect(() => {
     if (modelData) {
       // 使用 loadExternalResource 加载 PixiJS
-      loadExternalResource('https://cdn.jsdelivr.net/npm/pixi-live2d-display/dist/cubism4.min.js', 'js')
+      loadExternalResource('https://cdn.jsdelivr.net/npm/pixi-live2d-display/dist/cubism2.min.js', 'js')
         .then(() => {
           // 在这里初始化 PixiJS
           console.log('PixiJS loaded successfully');
