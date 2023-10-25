@@ -37,7 +37,7 @@ export default function Live2D() {
             width: 1280,
             height: 1600,
             transparent: true,
-            preserveDrawingBuffer: true,
+            preserveDrawingBuffer: true
           });
 
           // 创建 Live2D 模型
@@ -52,7 +52,7 @@ export default function Live2D() {
             autoInteract: follow,
             expressionFadingDuration: 0,
             motionFadingDuration: 0,
-            idleMotionFadingDuration: 0,
+            idleMotionFadingDuration: 0
           });
 
           // 将 Live2D 模型添加到 Pixi Application 的舞台
