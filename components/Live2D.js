@@ -22,11 +22,11 @@ export default function Live2D() {
 
   useEffect(() => {
     if (modelData) {
-      console.log('PixiJS loaded successfully');
       // 使用 loadExternalResource 加载 PixiJS
       loadExternalResource('https://pixijs.download/v7.3.2/pixi.min.js', 'js')
         .then(() => {
           // 在这里初始化 PixiJS
+          console.log('PixiJS loaded successfully');
           const PIXI = window.PIXI; // 如果 PixiJS 脚本正确加载，PIXI应该为全局对象
 
           // 创建 Pixi Application
