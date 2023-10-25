@@ -5,11 +5,12 @@ export default function Live2D() {
   const modelUrl = 'https://xxx.tgftgf.workers.dev/103302/model.json';
   const [modelData, setModelData] = useState(null);
   const follow = true;
+  let live2dSprite;
 
   useEffect(() => {
     // 使用 Fetch API 从网络链接获取 Live2D 模型资源
     fetch(modelUrl)
-      .then((response) => response.json()) // 或者使用适当的解析方法
+      .then((response) => response.json())
       .then((data) => {
         // 数据加载成功后，设置模型数据
         setModelData(data);
@@ -21,14 +22,27 @@ export default function Live2D() {
 
   useEffect(() => {
     if (modelData) {
-      Promise.all([
-        loadExternalResource('https://pixijs.download/v7.3.2/pixi.min.js', 'js')
-      ]).then(() => {
-        // 导入 Pixi.js 对象
+      loadPixiJSAndInitializeLive2D();
+    }
+  }, [modelData]);
+
+  // 使用 loadExternalResource 加载 PixiJS
+  const loadPixiJSAndInitializeLive2D = () => {
+    loadExternalResource('https://pixijs.download/v7.3.2/pixi.min.js', 'js')
+      .then(() => {
+        // 导入 PixiJS 对象
         import('pixi.js').then((PIXI) => {
+          // 创建 Pixi Application
+          const app = new PIXI.Application({
+            width: 1280,
+            height: 1600,
+            transparent: true,
+            preserveDrawingBuffer: true,
+          });
+
           // 创建 Live2D 模型
           const settings = new PIXI.live2d.Cubism4ModelSettings(modelData);
-          const live2dSprite = PIXI.live2d.Live2DModel.from(settings, {
+          live2dSprite = PIXI.live2d.Live2DModel.from(settings, {
             eyeBlink: true,
             lipSyncWithSound: true,
             debugLog: false,
@@ -38,15 +52,7 @@ export default function Live2D() {
             autoInteract: follow,
             expressionFadingDuration: 0,
             motionFadingDuration: 0,
-            idleMotionFadingDuration: 0
-          });
-
-          // 创建 Pixi Application
-          const app = new PIXI.Application({
-            width: 1280,
-            height: 1600,
-            transparent: true,
-            preserveDrawingBuffer: true
+            idleMotionFadingDuration: 0,
           });
 
           // 将 Live2D 模型添加到 Pixi Application 的舞台
@@ -71,9 +77,11 @@ export default function Live2D() {
           container.style.height = '400px';
           container.appendChild(app.view);
         });
+      })
+      .catch((error) => {
+        console.error('加载 PixiJS 失败', error);
       });
-    }
-  }, [modelData]);
+  };
 
   return <div id='live2d-container' style={{ width: '320px', height: '400px' }}></div>;
 }
