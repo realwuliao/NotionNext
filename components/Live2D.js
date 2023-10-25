@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { loadExternalResource } from '@/lib/utils';
-// import { live2dModel } from '@/lib/live2d';
+import { Live2DModel } from '@/lib/live2d';
+import { Cubism2ModelSettings } from '@/lib/live2d';
 
 export default function Live2D() {
   const modelUrl = 'https://xxx.tgftgf.workers.dev/103302/model.json';
@@ -24,7 +25,7 @@ export default function Live2D() {
   useEffect(() => {
     if (modelData) {
       // 使用 loadExternalResource 加载 PixiJS
-      loadExternalResource('https://cdn.jsdelivr.net/npm/pixi-live2d-display/dist/cubism2.min.js', 'js')
+      loadExternalResource('https://pixijs.download/v6.5.10/pixi.min.js', 'js')
         .then(() => {
           // 在这里初始化 PixiJS
           console.log('PixiJS loaded successfully');
@@ -39,8 +40,8 @@ export default function Live2D() {
           });
 
           // 创建 Live2D 模型
-          const settings = new PIXI.live2d.Cubism4ModelSettings(modelData);
-          live2dSprite = PIXI.live2d.Live2DModel.from(settings, {
+          const settings = new Cubism2ModelSettings(modelData);
+          live2dSprite = Live2DModel.from(settings, {
             eyeBlink: true,
             lipSyncWithSound: true,
             debugLog: false,
@@ -55,7 +56,6 @@ export default function Live2D() {
 
           // 将 Live2D 模型添加到 Pixi Application 的舞台
           app.stage.addChild(live2dSprite);
-          live2dSprite.scale.set(0.5, 0.5);
 
           // 点击事件处理
           function handleModelClick() {
@@ -70,7 +70,7 @@ export default function Live2D() {
           live2dSprite.on('click', handleModelClick);
 
           // 将 Pixi Application 挂载到页面上的 DOM 元素
-          const container = document.getElementById('live2d-container');
+          const container = document.getElementById('live2d');
           container.style.width = '320px';
           container.style.height = '400px';
           container.appendChild(app.view);
@@ -81,5 +81,5 @@ export default function Live2D() {
     }
   }, [modelData]);
 
-  return <div id='live2d-container' style={{ width: '320px', height: '400px' }}></div>;
+  return <div id='live2d' style={{ width: '320px', height: '400px' }}></div>;
 }
