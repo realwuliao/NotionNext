@@ -1,6 +1,7 @@
 import QrCode from '@/components/QrCode'
 import { siteConfig } from '@/lib/config'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
+import { handleEmailClick } from '@/lib/plugins/mailEncrypt'
 
 /**
  * 社交联系方式按钮组
@@ -9,6 +10,9 @@ import { useState } from 'react'
  */
 const SocialButton = () => {
   const CONTACT_GITHUB = siteConfig('CONTACT_GITHUB')
+  const CONTACT_ORCID = siteConfig('CONTACT_ORCID')
+  const CONTACT_CSDN = siteConfig('CONTACT_CSDN')
+  const CONTACT_JUEJIN = siteConfig('CONTACT_JUEJIN')
   const CONTACT_TWITTER = siteConfig('CONTACT_TWITTER')
   const CONTACT_TELEGRAM = siteConfig('CONTACT_TELEGRAM')
 
@@ -32,6 +36,9 @@ const SocialButton = () => {
     setQrCodeShow(false)
   }
 
+  const emailIcon = useRef(null)
+
+
   return (
     <div className='w-full justify-center flex-wrap flex'>
       <div className='space-x-3 text-xl flex items-center text-gray-600 dark:text-gray-300 '>
@@ -42,6 +49,33 @@ const SocialButton = () => {
             title={'github'}
             href={CONTACT_GITHUB}>
             <i className='transform hover:scale-125 duration-150 fab fa-github dark:hover:text-green-400 hover:text-green-600' />
+          </a>
+        )}
+        {CONTACT_ORCID && (
+          <a
+            target='_blank'
+            rel='noreferrer'
+            title={'ORCID'}
+            href={CONTACT_ORCID}>
+            <i className='transform hover:scale-125 duration-150 fab fa-orcid dark:hover:text-green-400 hover:text-green-600' />
+          </a>
+        )}
+        {CONTACT_CSDN && (
+          <a
+            target='_blank'
+            rel='noreferrer'
+            title={'CSDN'}
+            href={CONTACT_CSDN}>
+            <i className='transform hover:scale-125 duration-150 fab fa-csdn dark:hover:text-green-400 hover:text-green-600' />
+          </a>
+        )}
+        {CONTACT_JUEJIN && (
+          <a
+            target='_blank'
+            rel='noreferrer'
+            title={'稀土掘金'}
+            href={CONTACT_JUEJIN}>
+            <i className='transform hover:scale-125 duration-150 fab fa-juejin dark:hover:text-green-400 hover:text-green-600' />
           </a>
         )}
         {CONTACT_TWITTER && (
@@ -91,10 +125,10 @@ const SocialButton = () => {
         )}
         {CONTACT_EMAIL && (
           <a
-            target='_blank'
-            rel='noreferrer'
-            title={'email'}
-            href={`mailto:${CONTACT_EMAIL}`}>
+            onClick={e => handleEmailClick(e, emailIcon, CONTACT_EMAIL)}
+            title='email'
+            className='cursor-pointer'
+            ref={emailIcon}>
             <i className='transform hover:scale-125 duration-150 fas fa-envelope dark:hover:text-green-400 hover:text-green-600' />
           </a>
         )}
@@ -144,6 +178,7 @@ const SocialButton = () => {
             target='_blank'
             rel='noreferrer'
             title={'知识星球'}
+            className='flex justify-center items-center'
             href={CONTACT_ZHISHIXINGQIU}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img

@@ -11,7 +11,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 const Catalog = ({ toc }) => {
   // 监听滚动事件
   useEffect(() => {
-    window.addEventListener('scroll', actionSectionScrollSpy)
+    window.addEventListener('scroll', actionSectionScrollSpy, { passive: true })
     actionSectionScrollSpy()
     return () => {
       window.removeEventListener('scroll', actionSectionScrollSpy)
@@ -73,7 +73,7 @@ const Catalog = ({ toc }) => {
                 key={id}
                 href={`#${id}`}
                 className={`notion-table-of-contents-item duration-300 transform font-light
-              notion-table-of-contents-item-indent-level-${tocItem.indentLevel} `}>
+              notion-table-of-contents-item-indent-level-${tocItem.indentLevel} catalog-item `}>
                 <span
                   style={{
                     display: 'inline-block',
